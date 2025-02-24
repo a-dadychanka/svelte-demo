@@ -17,13 +17,10 @@
 	>
 {/snippet}
 
-{#snippet submitAction(onclick: (e: MouseEvent | SubmitEvent) => void)}
-	<Button
-		variant="primary"
-		onclick={(e) => {
-			onclick(e);
-		}}>Add Note</Button
-	>
+{#snippet submitAction(onclick: (e: MouseEvent | SubmitEvent) => void, submitting: boolean)}
+	<Button variant="primary" disabled={submitting} type="submit">
+		{submitting ? 'Adding...' : 'Add Note'}
+	</Button>
 {/snippet}
 
 {#if !showForm}
@@ -41,6 +38,12 @@
 
 {#if showForm}
 	<div transition:fade={{ duration: 300 }}>
-		<AddNoteInlineForm {cancelAction} {submitAction} />
+		<AddNoteInlineForm
+			{cancelAction}
+			{submitAction}
+			onSubmit={() => {
+				showForm = false;
+			}}
+		/>
 	</div>
 {/if}

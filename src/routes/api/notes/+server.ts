@@ -1,16 +1,7 @@
 import type { Note } from '$lib/types/note';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
-const mockNotesTable: Note[] = [
-	// {
-	// 	id: '1',
-	// 	title: 'Note 1',
-	// 	content: 'Content 1',
-	// 	tags: [],
-	// 	createdAt: new Date(),
-	// 	updatedAt: new Date()
-	// }
-];
+const mockNotesTable: Note[] = [];
 
 export const GET: RequestHandler = async () => {
 	return json(mockNotesTable);
@@ -22,11 +13,15 @@ export const POST: RequestHandler = async ({ request }) => {
 	const note: Note = {
 		...createdNote,
 		id: crypto.randomUUID(),
-		createdAt: new Date(),
-		updatedAt: new Date()
+		createdAt: new Date().toISOString(),
+		updatedAt: new Date().toISOString()
 	};
 
 	mockNotesTable.push(note);
 
-	return json(note);
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(json(note));
+		}, 1000);
+	});
 };

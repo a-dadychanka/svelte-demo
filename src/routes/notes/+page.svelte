@@ -1,8 +1,7 @@
 <script lang="ts">
 	import AddNoteButton from '$lib/components/notes/AddNoteButton.svelte';
 	import NotesAlertMessage from '$lib/components/notes/NotesAlertMessage.svelte';
-	import NotesList from '$lib/components/notes/NotestList.svelte';
-	import { notes } from '$lib/stores/notes';
+	import NotesList from '$lib/components/notes/NotesList.svelte';
 
 	let { data } = $props();
 	let infoMessage: string | null = $derived.by(() => {
@@ -12,8 +11,6 @@
 
 		return null;
 	});
-
-	notes.set(data.notes);
 </script>
 
 <svelte:head>
@@ -29,7 +26,9 @@
 		<NotesAlertMessage message={infoMessage} variant="info" />
 	{/if}
 
-	<NotesList notes={$notes} />
+	<div class="mt-4 mb-4">
+		<NotesList notes={data.notes} />
+	</div>
 
 	<AddNoteButton />
 </div>
