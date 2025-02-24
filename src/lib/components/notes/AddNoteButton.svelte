@@ -1,31 +1,46 @@
 <script lang="ts">
-	import AddNoteForm from './AddNoteInlineForm.svelte';
+	import Button from '$lib/components/shared/Button.svelte';
+	import { fade } from 'svelte/transition';
+	import AddNoteInlineForm from './AddNoteInlineForm.svelte';
 
 	let showForm = $state(false);
 </script>
 
-{#snippet cancelAction()}
-	<button
-		onclick={() => {
+{#snippet cancelAction(onclick: (e: MouseEvent) => void)}
+	<Button
+		variant="secondary"
+		type="reset"
+		onclick={(e) => {
+			onclick(e);
 			showForm = false;
-		}}
-		class="rounded-md bg-red-500 px-4 py-2 text-white">Cancel</button
+		}}>Cancel</Button
 	>
 {/snippet}
 
-{#snippet submitAction()}
-	<button type="submit" class="rounded-md bg-blue-500 px-4 py-2 text-white">Add Note</button>
+{#snippet submitAction(onclick: (e: MouseEvent | SubmitEvent) => void)}
+	<Button
+		variant="primary"
+		onclick={(e) => {
+			onclick(e);
+		}}>Add Note</Button
+	>
 {/snippet}
 
 {#if !showForm}
-	<button
-		class="rounded-md bg-blue-500 px-4 py-2 text-white"
-		onclick={() => {
-			showForm = true;
-		}}>Add Note</button
-	>
+	<div transition:fade={{ duration: 300 }}>
+		<Button
+			variant="primary"
+			onclick={() => {
+				showForm = true;
+			}}
+		>
+			Add Note
+		</Button>
+	</div>
 {/if}
 
 {#if showForm}
-	<AddNoteForm {cancelAction} {submitAction} />
+	<div transition:fade={{ duration: 300 }}>
+		<AddNoteInlineForm {cancelAction} {submitAction} />
+	</div>
 {/if}

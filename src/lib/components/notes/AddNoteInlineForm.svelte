@@ -1,10 +1,29 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	let { submitAction, cancelAction }: { submitAction: Snippet; cancelAction: Snippet } = $props();
+	export interface Props {
+		submitAction: Snippet<[onclick: (e: SubmitEvent | MouseEvent) => void]>;
+		cancelAction: Snippet<[onclick: (e: MouseEvent) => void]>;
+	}
+
+	let { submitAction, cancelAction }: Props = $props();
+
+	function handleSubmit(e: SubmitEvent | MouseEvent) {
+		e.preventDefault();
+		// Add your form submission logic here
+
+		console.log('submit inside form');
+	}
+
+	function handleReset(e: Event) {
+		e.preventDefault();
+		// Add your form reset logic here
+
+		console.log('reset inside form');
+	}
 </script>
 
-<form action="" class="flex flex-row justify-between gap-2">
+<form onsubmit={handleSubmit} onreset={handleReset} class="flex flex-row justify-between gap-2">
 	<div class="flex-1">
 		<input
 			type="text"
@@ -18,7 +37,7 @@
 	</div>
 
 	<div class="flex flex-row gap-2">
-		{@render submitAction()}
-		{@render cancelAction()}
+		{@render submitAction(handleSubmit)}
+		{@render cancelAction(handleReset)}
 	</div>
 </form>
