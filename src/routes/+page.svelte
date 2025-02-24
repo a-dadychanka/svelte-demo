@@ -4,16 +4,17 @@
 
 <svelte:head>
 	<title>DevNotes</title>
-	<meta name="description" content="Your personal space for development notes, code snippets, and documentation." />
+	<meta
+		name="description"
+		content="Your personal space for development notes, code snippets, and documentation."
+	/>
 	<link rel="icon" href="/favicon.png" />
 	<link rel="apple-touch-icon" href="/favicon.png" />
 	<link rel="manifest" href="/manifest.json" />
 </svelte:head>
 
 <div class="text-center" in:fly={{ y: 20, duration: 600 }}>
-	<h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-		Welcome to DevNotes
-	</h1>
+	<h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Welcome to DevNotes</h1>
 	<p class="mt-6 text-lg leading-8 text-gray-600">
 		Your personal space for development notes, code snippets, and documentation.
 	</p>
@@ -24,7 +25,7 @@
 		>
 			Get Started
 		</a>
-		<a href="/about" class="text-sm font-semibold leading-6 text-gray-900">
+		<a href="/about" class="text-sm leading-6 font-semibold text-gray-900">
 			Learn more <span aria-hidden="true">→</span>
 		</a>
 	</div>
